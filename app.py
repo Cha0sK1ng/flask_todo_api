@@ -12,7 +12,7 @@ class Task:
         self.completed = completed
 
 @app.route('/tasks/<int:id>', methods=['PUT'])
-def put_value():
+def put_value(id):
     json = request.get_json()
     to_update = None
 
@@ -46,8 +46,12 @@ def set_value():
     return jsonify({"msg": "POST OK"}), 201
 
 @app.route('/tasks/<int:id>', methods=['DELETE'])
-def delete_value():
-    pass
+def delete_value(id):
+    for task in tasks:
+        if task.id == id:
+            tasks.remove(task)
+            return jsonify({"msg": "DELETE OK"}), 200
+    return jsonify({"msg": "DELETE FAILED"}), 404
 
 @app.route('/tasks', methods=['GET'])
 def get_value():
