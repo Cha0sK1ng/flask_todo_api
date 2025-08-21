@@ -55,8 +55,6 @@ def delete_value(id):
 
 @app.route('/tasks', methods=['GET'])
 def get_value():
-    if not tasks:
-        return jsonify({"msg": "GET FAILED"}), 404
     val = [{"id": task.id, "title": task.title, "completed": task.completed} for task in tasks]
     return jsonify({"msg" : "GET OK", "value": val}), 200
 
